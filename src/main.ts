@@ -10,8 +10,8 @@ async function bootstrap() {
   app.use('/uploads', express.static(join(__dirname, '..', 'uploads')))
   app.enableCors({
     origin: [
-      'http://localhost:3000',
-      'http://notevault.pro',
+      'https://note-vault-backend-w1uv.onrender.com',
+      'https://notevault.pro',
     ],
     credentials: true,
   })
