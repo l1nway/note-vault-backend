@@ -26,6 +26,7 @@ import {Module} from '@nestjs/common'
         database: configService.get<string>('DB_DATABASE'),
         entities: [User, Note, Category, Tag],
         synchronize: configService.get<string>('NODE_ENV') !== 'production',
+        ssl: {rejectUnauthorized: false},
       }),
     }),
     CategoriesModule,
