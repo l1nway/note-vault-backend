@@ -17,23 +17,27 @@ import {Module} from '@nestjs/common'
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        type: 'mysql',
-        host: configService.get<string>('DB_HOST'),
-        port: configService.get<number>('DB_PORT'),
-        username: configService.get<string>('DB_USERNAME'),
-        password: configService.get<string>('DB_PASSWORD'),
-        database: configService.get<string>('DB_DATABASE'),
-        entities: [User, Note, Category, Tag],
-        synchronize: configService.get<string>('NODE_ENV') !== 'production',
-        ssl: {rejectUnauthorized: false},
-      }),
+      useFactory: (configService: ConfigService) => {
+
+        return {
+          type: 'mysql',
+          host: configService.get<string>('DB_HOST'),
+          port: configService.get<number>('DB_PORT'),
+          username: configService.get<string>('DB_USERNAME'),
+          password: configService.get<string>('DB_PASSWORD'),
+          database: configService.get<string>('DB_DATABASE'),
+          entities: [User, Note, Category, Tag],
+          synchronize: configService.get<string>('NODE_ENV') !== 'production',
+          ssl: configService.get<string>('NODE_ENV') === 'production' 
+            ? {rejectUnauthorized: false} 
+            : false,
+        }},
     }),
     CategoriesModule,
     NotesModule,
     UsersModule,
-    TagModule,
     AuthModule,
+    TagModule,
   ],
 })
 export class AppModule {}

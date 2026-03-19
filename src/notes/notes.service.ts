@@ -59,7 +59,7 @@ export class NotesService {
     if (dto.categoryId !== undefined) {
       note.category = dto.categoryId ? {id: Number(dto.categoryId)} as any : null
     }
-
+    note.updatedAt = new Date()
     await this.notesRepository.save(note)
 
     if (dto.tagIds !== undefined) {

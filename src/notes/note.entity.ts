@@ -26,6 +26,13 @@ export class Note {
   @CreateDateColumn()
   createdAt: Date
 
+  @Column({ 
+    type: 'timestamp', 
+    nullable: true, 
+    default: null 
+  })
+  updatedAt: Date
+
   @ManyToOne(() => User, (user) => user.notes)
   user: User
 
